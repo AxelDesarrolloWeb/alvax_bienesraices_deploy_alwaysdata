@@ -1,0 +1,30 @@
+source: 'https://github.com/AxelDesarrolloWeb/bienes_raices_mvc_api_deploy'
+features:
+  - 'php 8.3'
+  - mysql
+  - ssl
+  - 'ssl always'
+root: public_html/public
+nginx:
+  fastcgi: 'on'
+  locations:
+    - match: /
+      try_files: $uri $uri/ /index.php$is_args$args
+    - match: '~ \.[^\/]+(?<!\.php)$'
+      try_files: $uri =404
+commands:
+  - 'echo "<?php phpinfo();" > phpinfo.php'
+  - 'echo "display_errors = On" > .user.ini'
+  - 'echo "display_startup_errors = On" >> .user.ini'
+  - 'echo "DB_HOST=mysql" > includes/.env'
+  - 'echo "DB_USER=${USERNAME}" >> includes/.env'
+  - 'echo "DB_PASS=${PASSWORD}" >> includes/.env'
+  - 'echo "DB_NAME=${DATABASE}" >> includes/.env'
+  - 'echo "" >> includes/.env'
+  - 'echo "MAIL_HOST=sandbox.smtp.mailtrap.io" >> includes/.env'
+  - 'echo "MAIL_USER=db6fc84d367982" >> includes/.env'
+  - 'echo "MAIL_PASSWORD=70eb7a429660a8" >> includes/.env'
+  - 'echo "MAIL_PORT=2525" >> includes/.env'
+  - 'echo "" >> includes/.env'
+  - 'echo "SERVER_HOST=https://${DOMAIN}" >> includes/.env'
+  - 'composer install'

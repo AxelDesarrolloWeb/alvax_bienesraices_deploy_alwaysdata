@@ -1,6 +1,6 @@
 node_modules/
-vendor/
-package-lock.json
-composer.lock
-includes/.env
-domcloud.yaml
+# vendor/
+# package-lock.json
+# composer.lock
+# includes/.env
+# domcloud.yaml
