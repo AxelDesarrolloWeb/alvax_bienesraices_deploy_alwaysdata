@@ -1,0 +1,27 @@
+.no-webp .imagen-contacto {
+  background-image: url("../img/destacada3.jpg");
+}
+.webp .imagen-contacto {
+  background-image: url("../img/destacada3.webp");
+}
+
+.imagen-contacto {
+  background-size: cover;
+  background-position: center center;
+  padding: $separacion * 2 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+
+  h2 {
+    color: $blanco;
+    font-size: 4rem;
+    font-weight: $black;
+  }
+
+  p {
+    color: $blanco;
+    font-size: 1.8rem;
+  }
+}

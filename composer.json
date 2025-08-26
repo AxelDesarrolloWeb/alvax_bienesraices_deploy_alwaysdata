@@ -1,0 +1,22 @@
+{
+    "name": "alvax/bienesraices_inicio",
+    "description": "Aprendiendo NameSpaces y Autoload",
+    "authors": [
+        {
+            "name": "Alvax",
+            "email": "alvax019@gmail.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.11",
+        "phpmailer/phpmailer": "^6.10",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\" : "./models", 
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers"
+        }
+    }
+}
