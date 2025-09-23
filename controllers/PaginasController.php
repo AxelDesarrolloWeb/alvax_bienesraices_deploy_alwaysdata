@@ -90,12 +90,19 @@ class PaginasController
 
             // Configuración del servidor de correo
             $mail->isSMTP();
-            $mail->Host = $_ENV['EMAIL_HOST'];
+            // Fallback: aceptar EMAIL_* o MAIL_* del entorno
+            $host = $_ENV['EMAIL_HOST'] ?? $_ENV['MAIL_HOST'] ?? 'localhost';
+            $port = (int)($_ENV['EMAIL_PORT'] ?? $_ENV['MAIL_PORT'] ?? 25);
+            $user = $_ENV['EMAIL_USER'] ?? $_ENV['MAIL_USER'] ?? '';
+            $pass = $_ENV['EMAIL_PASS'] ?? $_ENV['MAIL_PASSWORD'] ?? '';
+            $secure = $_ENV['EMAIL_ENCRYPTION'] ?? $_ENV['MAIL_ENCRYPTION'] ?? 'tls';
+
+            $mail->Host = $host;
             $mail->SMTPAuth = true;
-            $mail->Port = $_ENV['EMAIL_PORT'];
-            $mail->Username = $_ENV['EMAIL_USER'];
-            $mail->Password = $_ENV['EMAIL_PASS'];
-            $mail->SMTPSecure = 'tls';
+            $mail->Port = $port;
+            $mail->Username = $user;
+            $mail->Password = $pass;
+            $mail->SMTPSecure = $secure;
 
             // Configuración del correo
             $mail->setFrom('alvaxG@example.com');
