@@ -1,32 +1,25 @@
 <?php
-
+// ...existing code...
 namespace Model;
 
-use Model\Admin;
-
-class Blog extends ActiveRecord
-{
-
-    // Base DE DATOS
-    protected static $tabla = 'blogs';
-    protected static $columnasDB = ['id', 'titulo', 'imagen', 'descripcion', 'creado', 'usuarioId'];
-
+class Blog extends ActiveRecord {
+    protected static $tabla = 'blogs'; // o el nombre real de la tabla
+    protected static $columnasDB = ['id','titulo','descripcion','imagen','creado','usuarioId'];
 
     public $id;
     public $titulo;
-    public $imagen;
     public $descripcion;
+    public $imagen;
     public $creado;
     public $usuarioId;
 
-    public function __construct($args = [])
-    {
+    public function __construct($args = []) {
         $this->id = $args['id'] ?? null;
         $this->titulo = $args['titulo'] ?? '';
-        $this->imagen = $args['imagen'] ?? '';
         $this->descripcion = $args['descripcion'] ?? '';
-        $this->creado = date('Y-m-d H:i:s');
-        $this->usuarioId = $args['usuarioId'] ?? '';
+        $this->imagen = $args['imagen'] ?? '';
+        $this->creado = $args['creado'] ?? date('Y-m-d');
+        $this->usuarioId = $args['usuarioId'] ?? 2;
     }
 
     public function validar()
@@ -54,35 +47,35 @@ class Blog extends ActiveRecord
     }
 
 
-    // public function getNombreUsuario()
-    // {
-    //     $query = "SELECT u.nombreUsuario
-    //             FROM blogs b
-    //             INNER JOIN usuarios u ON b.usuarioId = u.id
-    //             WHERE b.id = ?";
+     public function getNombreUsuario()
+     {
+         $query = "SELECT u.nombreUsuario
+                 FROM blogs b
+                 INNER JOIN usuarios u ON b.usuarioId = u.id
+                 WHERE b.id = ?";
 
-    //     $stmt = self::$db->prepare($query);
-    //     $stmt->bind_param("i", $this->id);
-    //     $stmt->execute();
-    //     $resultado = $stmt->get_result();
+         $stmt = self::$db->prepare($query);
+         $stmt->bind_param("i", $this->id);
+         $stmt->execute();
+         $resultado = $stmt->get_result();
 
-    //     return $resultado->fetch_assoc()['nombreUsuario'];
-    // }
+         return $resultado->fetch_assoc()['nombreUsuario'];
+     }
 
-    // En Model/Blog.php
-    public static function getAllWithUsers($limite = null)
-    {
-        $query = "SELECT b.*, u.nombreUsuario 
-              FROM blogs b
-              INNER JOIN usuarios u ON b.usuarioId = u.id";
+     
+     public static function getAllWithUsers($limite = null)
+     {
+         $query = "SELECT b.*, u.nombreUsuario 
+               FROM blogs b
+               INNER JOIN usuarios u ON b.usuarioId = u.id";
 
-        if ($limite) {
-            $query .= " LIMIT " . $limite;
-        }
+         if ($limite) {
+             $query .= " LIMIT " . $limite;
+         }
 
-        $resultado = self::consultarSQL($query);
-        return $resultado;
-    }
+         $resultado = self::consultarSQL($query);
+         return $resultado;
+     }
 
     // En Blog.php
     public static function paginar($porPagina, $pagina)

@@ -18,15 +18,15 @@ class BlogController
         $porPagina = 5;
         $total = Blog::count();
         $blogs = Blog::paginar($porPagina, $pagina);
-        $usuario = new Admin;
-        $usuarios = Admin::all();
+        // $usuario = new Admin;
+        // $usuarios = Admin::all();
 
         $router->render('paginas/blog', [
             'blogs' => $blogs,
             'paginas' => ceil($total / $porPagina),
             'pagina_actual' => $pagina,
-            'usuarios' => $usuarios,
-            'usuario' => $usuario
+            // 'usuarios' => $usuarios,
+            // 'usuario' => $usuario
         ]);
     }
 
@@ -79,8 +79,8 @@ class BlogController
         $router->render('blogs/crear', [
             'errores' => $errores,
             'blog' => $blog,
-            'Blogs' => $blogs,
-            'blogs' => $blogs
+            // 'Blogs' => $blogs,
+            // 'blogs' => $blogs
         ]);
     }
 
